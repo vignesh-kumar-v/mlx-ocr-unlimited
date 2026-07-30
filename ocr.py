@@ -232,10 +232,7 @@ def main():
     if args.pdf:
         prompt = args.prompt or "<image> Multi page parsing."
         image_size = args.image_size or 1024
-        images = [
-            load_image(pth).convert("RGB")
-            for pth in pdf_to_images(args.pdf, dpi=args.dpi)
-        ]
+        images = pdf_to_images(args.pdf, dpi=args.dpi)
         # sensible default for long multi-page docs
         if args.no_repeat_ngram_size == 0:
             gen_kwargs.update(no_repeat_ngram_size=35, ngram_window=1024)

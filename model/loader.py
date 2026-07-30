@@ -19,13 +19,15 @@ _DTYPES = {"bf16": mx.bfloat16, "fp16": mx.float16, "fp32": mx.float32}
 def _resolve_mlx_dir(model_path):
     """Return a directory containing weights.safetensors + config.json + tokenizer.json."""
     if model_path and os.path.isdir(model_path):
-        if os.path.exists(os.path.join(model_path, "weights.safetensors")):
-            return model_path
-        hf_dir = model_path  # a raw HF checkpoint directory
+        hf_dir = model_path
     else:
         from huggingface_hub import snapshot_download
 
         hf_dir = snapshot_download(model_path or HF_REPO)
+
+    # Already an MLX conversion (local dir or a hosted repo of converted weights).
+    if os.path.exists(os.path.join(hf_dir, "weights.safetensors")):
+        return hf_dir
 
     mlx_dir = os.path.join(hf_dir, "mlx")
     if not os.path.exists(os.path.join(mlx_dir, "weights.safetensors")):

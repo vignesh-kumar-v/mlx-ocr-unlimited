@@ -76,11 +76,10 @@ def test_config_from_json_defaults_norm_false():
 def test_single_page_ocr():
     import ocr
     from model.loader import load
-    from processing.image import load_image
     from utils.pdf import pdf_to_images
 
     model, tokenizer = load(os.path.join(ROOT, "mlx-weights"))
-    page = load_image(pdf_to_images(PDF, dpi=200)[0]).convert("RGB")
+    page = pdf_to_images(PDF, dpi=200)[0]
     text = ocr.infer(
         model,
         tokenizer,
