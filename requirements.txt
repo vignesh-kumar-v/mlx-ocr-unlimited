@@ -1,0 +1,11 @@
+# Runtime
+mlx>=0.29.0
+numpy>=1.24.0
+Pillow>=10.0.0
+transformers>=4.40.0
+safetensors>=0.4.0
+huggingface_hub>=0.20.0
+PyMuPDF>=1.23.0
+
+# Weight conversion only (convert.py reads the bfloat16 HF checkpoint via torch)
+torch>=2.0.0

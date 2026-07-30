@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Model weights (regenerate with convert.py)
+mlx-weights/
+hf-weights/
+
+# Local dev artifacts (reference outputs, benchmarks, papers, notebooks)
+extracted_*.txt
+benchmark_*.txt
+papers/
+*.ipynb
+.claude/
