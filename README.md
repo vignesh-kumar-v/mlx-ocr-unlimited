@@ -28,17 +28,24 @@ pip install -r requirements.txt        # runtime + torch (for conversion)
 
 ## Weights
 
-Download the checkpoint and convert it to MLX (stacks MoE experts, transposes
-convolutions, stores fp16):
+Pre-converted fp16 weights are hosted at
+[`Vignesh-5756/Unlimited-OCR-mlx-fp16`](https://huggingface.co/Vignesh-5756/Unlimited-OCR-mlx-fp16)
+— pass the repo id to `--model` and they are downloaded on first use (no
+PyTorch needed):
 
 ```bash
-huggingface-cli download baidu/Unlimited-OCR --local-dir hf-weights
+python ocr.py --model Vignesh-5756/Unlimited-OCR-mlx-fp16 --image doc.png
+```
+
+To convert the original checkpoint yourself (stacks MoE experts, transposes
+convolutions; requires torch):
+
+```bash
+hf download baidu/Unlimited-OCR --local-dir hf-weights
 python convert.py --hf-path hf-weights --mlx-path mlx-weights   # --dtype {fp16,bf16,fp32}
 ```
 
 The `mlx-weights/` directory is self-contained (weights + config + tokenizer).
-Alternatively, pass an HF repo id to `--model` and it will be downloaded and
-converted on first use.
 
 ## Usage
 
